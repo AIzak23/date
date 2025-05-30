@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Planning Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_pink.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+        }
+
+        .form-input {
+            @apply w-full px-6 py-4 rounded-xl border-2 border-pink-200 focus:outline-none focus:border-pink-500 bg-white shadow-sm transition-all duration-300;
+        }
+
+        .form-input:focus {
+            @apply transform -translate-y-1 shadow-lg;
+        }
+
+        .form-label {
+            @apply block text-pink-600 text-sm font-semibold mb-2 transition-all duration-300;
+        }
+
+        .input-group {
+            @apply relative transition-all duration-300 transform hover:-translate-y-1;
+        }
+
+        .input-icon {
+            @apply absolute left-4 top-[3.2rem] text-pink-400 pointer-events-none;
+        }
+
+        .message-box {
+            background-image: linear-gradient(to bottom, transparent, transparent 29px, #fce7f3 29px, #fce7f3 30px);
+            background-size: 100% 30px;
+            line-height: 30px;
+        }
+
+        .card {
+            @apply bg-white backdrop-blur-lg bg-opacity-90 rounded-3xl shadow-xl transition-all duration-500;
+        }
+
+        .card:hover {
+            @apply shadow-2xl transform -translate-y-1;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+            @apply relative overflow-hidden transition-all duration-300;
+        }
+
+        .submit-btn::after {
+            content: '';
+            @apply absolute inset-0 bg-white opacity-0 transition-opacity duration-300;
+        }
+
+        .submit-btn:hover::after {
+            @apply opacity-20;
+        }
+
+        /* Progress indicator */
+        .progress-dots {
+            @apply flex justify-center space-x-2 mb-8;
+        }
+
+        .dot {
+            @apply w-2 h-2 rounded-full bg-pink-200 transition-all duration-300;
+        }
+
+        .dot.active {
+            @apply w-4 bg-pink-500;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 md:p-8">
+    <div class="card max-w-xl w-full p-8 md:p-12">
+        <div class="progress-dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-pink-600 mb-3">Plan Our Date! 💖</h1>
+            <p class="text-gray-600">Let's make it special together</p>
+        </div>
+
+        <form action="https://formspree.io/f/xvgrpkzk" method="POST" class="space-y-8">
+            <input type="hidden" name="_replyto" value="akiero63@gmail.com">
+            
+            <div class="input-group">
+                <label class="form-label">
+                    When would you like to meet?
+                </label>
+                <i class="input-icon fas fa-calendar"></i>
+                <input type="text" name="date" required class="form-input pl-12" id="date-picker" 
+                    placeholder="Select a date">
+            </div>
+
+            <div class="input-group">
+                <label class="form-label">
+                    What time works best?
+                </label>
+                <i class="input-icon fas fa-clock"></i>
+                <input type="text" name="time" required class="form-input pl-12" id="time-picker" 
+                    placeholder="Choose a time">
+            </div>
+
+            <div class="input-group">
+                <label class="form-label">
+                    Where should we meet?
+                </label>
+                <i class="input-icon fas fa-location-dot"></i>
+                <input type="text" name="place" required class="form-input pl-12" 
+                    placeholder="Enter a location">
+            </div>
+
+            <div class="input-group">
+                <label class="form-label">
+                    Your email
+                </label>
+                <i class="input-icon fas fa-envelope"></i>
+                <input type="email" name="email" required class="form-input pl-12" 
+                    placeholder="your@email.com">
+            </div>
+            
+            <div class="input-group">
+                <label class="form-label">
+                    Any Message?
+                </label>
+                <i class="input-icon fas fa-heart"></i>
+                <textarea name="message" required 
+                    class="form-input message-box pl-12 h-[150px] resize-none" 
+                    placeholder="Type your Message..."
+                    style="background-attachment: local;"></textarea>
+            </div>
+
+            <button type="submit" 
+                class="submit-btn w-full py-4 px-6 rounded-xl text-white font-semibold text-lg shadow-lg 
+                       hover:shadow-xl transform transition-all duration-300 hover:-translate-y-1">
+                <span class="relative z-10 flex items-center justify-center">
+                    Submit
+                    <i class="fas fa-paper-plane ml-2"></i>
+                </span>
+            </button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Initialize date picker with animation
+        flatpickr("#date-picker", {
+            minDate: "today",
+            dateFormat: "Y-m-d",
+            theme: "material_pink",
+            animate: true,
+            showMonths: 1,
+            disableMobile: true
+        });
+
+        // Initialize time picker with animation
+        flatpickr("#time-picker", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "h:i K",
+            theme: "material_pink",
+            animate: true,
+            minuteIncrement: 30,
+            disableMobile: true,
+            time_24hr: false
+        });
+
+        // Animate dots on input focus
+        document.querySelectorAll('input, textarea').forEach((input, index) => {
+            input.addEventListener('focus', () => {
+                document.querySelectorAll('.dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i <= index);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
